@@ -39,7 +39,6 @@
             overflow: hidden;
         }
 
-
         /* Background Pattern */
         .bg-pattern {
             position: absolute;
@@ -64,25 +63,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 16px;
+            padding: 10px 14px;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 15;
+            gap: 8px;
         }
         .profile-chip {
             background: rgba(255, 255, 255, 0.08);
             border: 0.5px solid rgba(255, 255, 255, 0.14);
             border-radius: 20px;
-            padding: 3px 10px 3px 4px;
+            padding: 3px 9px 3px 4px;
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             cursor: pointer;
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             transition: transform 0.12s ease, background 0.15s ease;
+            flex-shrink: 0;
         }
         .profile-chip:active {
             transform: scale(0.95);
@@ -109,18 +110,58 @@
             color: #ffffff;
         }
         .chip-name {
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 600;
             color: #f2f3f5;
-            max-width: 90px;
+            max-width: 75px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
+        /* Top Balance Pill */
+        .top-balance-pill {
+            background: rgba(255, 255, 255, 0.08);
+            border: 0.5px solid rgba(255, 255, 255, 0.14);
+            border-radius: 20px;
+            padding: 3px 8px 3px 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: transform 0.12s ease, background 0.15s ease;
+        }
+        .top-balance-pill:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.16);
+        }
+        .top-balance-val {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #ffd60a;
+            font-variant-numeric: tabular-nums;
+        }
+        .top-balance-plus {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #30d158;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
         .top-right-btns {
             display: flex;
-            gap: 8px;
+            gap: 7px;
+            align-items: center;
+            flex-shrink: 0;
         }
         .icon-btn {
             background: rgba(255, 255, 255, 0.08);
@@ -134,10 +175,22 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             transition: background 0.15s ease, transform 0.1s ease;
+            position: relative;
         }
         .icon-btn:active {
             background: rgba(255, 255, 255, 0.18);
             transform: scale(0.94);
+        }
+        .icon-btn-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ff9500;
+            color: #000;
+            font-size: 8.5px;
+            font-weight: 800;
+            border-radius: 6px;
+            padding: 1px 3.5px;
         }
 
         .content {
@@ -146,16 +199,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-bottom: 24px;
+            padding-bottom: 8px;
             z-index: 5;
             position: relative;
         }
 
-
         .rocket-container {
-            width: 190px;
-            height: 190px;
-            margin-bottom: 16px;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -169,7 +221,7 @@
         }
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
         .shake {
@@ -182,14 +234,24 @@
             40%, 60% { transform: translate3d(6px, 0, 0) scale(1.12); }
         }
 
+        /* Active Ship Tag */
+        .active-ship-tag {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #8c8e94;
+            letter-spacing: 0.2px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
         /* Counter */
         .stars-counter {
-            font-size: 40px;
+            font-size: 38px;
             font-weight: 700;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: #ffffff;
             letter-spacing: -0.6px;
             font-variant-numeric: tabular-nums;
@@ -203,7 +265,7 @@
             align-items: center;
             justify-content: center;
             gap: 7px;
-            padding: 6px 18px 6px 12px;
+            padding: 5px 16px 5px 10px;
             background: rgba(255, 255, 255, 0.08);
             border: 0.5px solid rgba(255, 255, 255, 0.16);
             border-radius: 24px;
@@ -214,7 +276,7 @@
             transform: scale(0.9);
             pointer-events: none;
             transition: opacity 0.35s cubic-bezier(0.32, 0.72, 0, 1), transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
-            min-height: 44px;
+            min-height: 40px;
             z-index: 3;
         }
         .multiplier-badge.visible {
@@ -223,37 +285,134 @@
             pointer-events: auto;
         }
         .multiplier {
-            font-size: 20px;
+            font-size: 19px;
             color: #f2f3f5;
             font-weight: 700;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.3px;
             font-variant-numeric: tabular-nums;
             transition: color 0.2s ease;
         }
-        .crashed-text {
+        .multiplier.cashed-text {
+            color: #30d158 !important;
+            text-shadow: 0 0 12px rgba(48, 209, 88, 0.5);
+        }
+        .multiplier.crashed-text {
             color: #ff453a !important;
+            text-shadow: 0 0 12px rgba(255, 69, 58, 0.5);
+        }
+
+        /* Controls Bottom Container */
+        .controls-container {
+            padding: 10px 18px 24px 18px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        /* Bet Selection Panel */
+        .bet-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: opacity 0.25s ease;
+        }
+        .bet-panel.disabled {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        .bet-row-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .bet-stepper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 0.5px solid rgba(255, 255, 255, 0.09);
+            border-radius: 14px;
+            padding: 3px 6px;
+            flex: 1;
+            justify-content: space-between;
+        }
+        .bet-step-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.12s, transform 0.1s;
+        }
+        .bet-step-btn:active {
+            background: rgba(255, 255, 255, 0.22);
+            transform: scale(0.92);
+        }
+        .bet-current-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bet-value-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bet-presets {
+            display: flex;
+            gap: 6px;
+            width: 100%;
+        }
+        .preset-btn {
+            flex: 1;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9px;
+            color: #e5e5ea;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.12s, color 0.12s, transform 0.1s;
+            font-variant-numeric: tabular-nums;
+        }
+        .preset-btn.active {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
             font-weight: 700;
         }
-        .cashed-text {
-            color: #30d158 !important;
-            font-weight: 700;
+        .preset-btn:active {
+            transform: scale(0.94);
         }
 
         /* Apple Style Action Button */
-        .button-container {
-            padding: 16px 22px 30px 22px;
-            width: 100%;
-            background: transparent;
-            z-index: 10;
-        }
         .action-button {
             width: 100%;
-            height: 56px;
+            height: 54px;
             background: #ffffff !important;
             color: #000000 !important;
             border: none;
             border-radius: 16px;
-            font-size: 17px;
+            font-size: 16.5px;
             font-weight: 700;
             letter-spacing: -0.3px;
             cursor: pointer;
@@ -273,7 +432,7 @@
         }
 
         /* ========================================= */
-        /* Apple Profile Modal (iOS Bottom Sheet)    */
+        /* Universal Modal Overlays (iOS Bottom Sheet) */
         /* ========================================= */
         .modal-overlay {
             position: absolute;
@@ -293,26 +452,26 @@
             opacity: 1;
             pointer-events: auto;
         }
-        .profile-sheet {
+        .sheet-modal {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            max-height: 85vh;
+            max-height: 86vh;
             background: #141519;
             border-top: 0.5px solid rgba(255, 255, 255, 0.15);
             border-radius: 28px 28px 0 0;
-            padding: 12px 20px 32px 20px;
+            padding: 12px 18px 30px 18px;
             box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.85);
             transform: translateY(100%);
             transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
             overflow-y: auto;
             z-index: 101;
         }
-        .profile-sheet.open {
+        .sheet-modal.open {
             transform: translateY(0);
         }
         .sheet-handle {
@@ -321,17 +480,71 @@
             border-radius: 3px;
             background: rgba(255, 255, 255, 0.25);
             margin: 0 auto;
+            flex-shrink: 0;
         }
+        .sheet-title-row {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .sheet-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.4px;
+        }
+        .sheet-subtitle {
+            font-size: 12px;
+            color: #8c8e94;
+            font-weight: 500;
+        }
+
+        /* Apple Cards */
+        .apple-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .card-header-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #8c8e94;
+            letter-spacing: 0.5px;
+        }
+        .balance-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .balance-val-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .balance-val {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Profile Sheet Specifics */
         .profile-header {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 4px 0;
+            gap: 12px;
+            padding: 2px 0;
         }
         .profile-avatar-wrapper {
             position: relative;
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: linear-gradient(135deg, #007aff, #5856d6);
             display: flex;
@@ -346,16 +559,16 @@
             object-fit: cover;
         }
         .profile-avatar-initials {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #ffffff;
         }
         .profile-badge-dot {
             position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 13px;
-            height: 13px;
+            bottom: 1px;
+            right: 1px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: #30d158;
             border: 2px solid #141519;
@@ -366,75 +579,69 @@
             gap: 2px;
         }
         .profile-name {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: -0.3px;
         }
         .profile-username {
-            font-size: 13px;
+            font-size: 12.5px;
             color: #8c8e94;
             font-weight: 500;
         }
 
-        /* Apple Card: Balance */
-        .apple-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 0.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 14px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .card-header-label {
-            font-size: 11.5px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #8c8e94;
-            letter-spacing: 0.5px;
-        }
-        .balance-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .balance-val {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.4px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* Apple Grid 4 Stat Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
         .stat-tile {
             background: rgba(255, 255, 255, 0.04);
             border: 0.5px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
-            padding: 12px 14px;
+            padding: 10px 12px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
         .stat-tile-title {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 500;
             color: #8c8e94;
         }
         .stat-tile-val {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #f2f3f5;
             font-variant-numeric: tabular-nums;
         }
 
-        /* History Ticker */
+        .sheet-action-btns-row {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+        .sheet-sec-btn {
+            flex: 1;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 0.5px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.15s, transform 0.1s;
+        }
+        .sheet-sec-btn:active {
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(0.97);
+        }
+
         .history-list {
             display: flex;
             gap: 8px;
@@ -442,9 +649,9 @@
             padding-bottom: 2px;
         }
         .history-pill {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
+            padding: 3px 9px;
+            border-radius: 10px;
+            font-size: 11.5px;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
             white-space: nowrap;
@@ -462,25 +669,251 @@
 
         .modal-close-btn {
             width: 100%;
-            height: 48px;
+            height: 46px;
             background: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             border: none;
             border-radius: 14px;
-            font-size: 16px;
+            font-size: 15.5px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.15s ease, transform 0.1s ease;
+            flex-shrink: 0;
         }
         .modal-close-btn:active {
             background: rgba(255, 255, 255, 0.18);
             transform: scale(0.98);
+        }
+
+        /* ========================================= */
+        /* Garage / Upgrades Modal List              */
+        /* ========================================= */
+        .fleet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+        .fleet-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            transition: background 0.15s;
+        }
+        .fleet-item.active-ship {
+            background: rgba(48, 209, 88, 0.08);
+            border-color: rgba(48, 209, 88, 0.35);
+        }
+        .fleet-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fleet-lottie-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .fleet-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .fleet-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .fleet-bonus {
+            font-size: 11.5px;
+            color: #ffd60a;
+            font-weight: 600;
+        }
+        .fleet-desc {
+            font-size: 10.5px;
+            color: #8c8e94;
+        }
+        .fleet-action-btn {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.15s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .fleet-action-btn:active {
+            transform: scale(0.95);
+        }
+        .btn-equip {
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn-equipped {
+            background: rgba(48, 209, 88, 0.2);
+            color: #30d158;
+            border: 0.5px solid rgba(48, 209, 88, 0.4);
+            cursor: default;
+        }
+        .btn-buy {
+            background: #ffd60a;
+            color: #000000;
+        }
+
+        /* ========================================= */
+        /* Deposit & Withdraw Sheets                 */
+        /* ========================================= */
+        .deposit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .deposit-pack-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .deposit-pack-card.selected {
+            background: rgba(255, 214, 10, 0.12);
+            border-color: #ffd60a;
+        }
+        .deposit-pack-card:active {
+            transform: scale(0.96);
+        }
+        .pack-stars-amount {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .pack-price-tag {
+            font-size: 11.5px;
+            color: #8c8e94;
+            font-weight: 500;
+        }
+
+        .primary-action-btn {
+            width: 100%;
+            height: 48px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 14px;
+            font-size: 15.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.1s, opacity 0.15s;
+        }
+        .primary-action-btn:active {
+            transform: scale(0.97);
+            opacity: 0.92;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .input-label {
+            font-size: 11.5px;
+            color: #8c8e94;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .ios-input {
+            width: 100%;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 0.5px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 0 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .ios-input:focus {
+            border-color: #007aff;
+        }
+        .withdraw-quick-btns {
+            display: flex;
+            gap: 6px;
+        }
+        .quick-btn {
+            flex: 1;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #e5e5ea;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Toast notification */
+        .toast-msg {
+            position: absolute;
+            top: 56px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: rgba(30, 30, 32, 0.92);
+            border: 0.5px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            z-index: 200;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+            white-space: nowrap;
+        }
+        .toast-msg.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
 
 <div class="app-container">
+
+    <!-- Toast -->
+    <div class="toast-msg" id="toastMsg">Уведомление</div>
 
     <!-- Background Pattern -->
     <div class="bg-pattern" id="bgPattern"></div>
@@ -496,52 +929,90 @@
             <span class="chip-name" id="chipName">Player</span>
         </div>
 
+        <!-- Top Balance Pill -->
+        <div class="top-balance-pill" onclick="openDepositModal()">
+            <lottie-player src="./star.json" background="transparent" speed="1" style="width: 18px; height: 18px;" loop autoplay></lottie-player>
+            <span class="top-balance-val" id="topBalanceVal">50</span>
+            <span class="top-balance-plus">+</span>
+        </div>
+
+        <!-- Right Controls: Garage & Close -->
         <div class="top-right-btns">
-            <div class="icon-btn" onclick="toggleMenu()">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>
+            <div class="icon-btn" onclick="openGarageModal()" title="Гараж">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                    <path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5"/>
+                    <path d="M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5"/>
+                </svg>
+                <div class="icon-btn-badge" id="garageBadge">VIP</div>
             </div>
             <div class="icon-btn" onclick="closeApp()">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </div>
         </div>
     </div>
 
     <div class="content">
+        <!-- АКТИВНЫЙ КОРАБЛЬ -->
+        <div class="active-ship-tag" id="activeShipTag">Базовая ракета</div>
 
         <!-- АНИМИРОВАННАЯ РАКЕТКА / ВЗРЫВ -->
         <div class="rocket-container floating" id="rocketContainer">
-            <lottie-player id="mainAnimation" src="./rocket.json" background="transparent" speed="1" style="width: 190px; height: 190px;" loop autoplay></lottie-player>
+            <lottie-player id="mainAnimation" src="./rocket.json" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
         </div>
 
-        <!-- СЧЕТЧИК ЗВЕЗД (ЧИСТЫЕ ЦЕЛЫЕ ЧИСЛА 1, 2, 3...) -->
+        <!-- СЧЕТЧИК ЗВЕЗД ВЫИГРЫША -->
         <div class="stars-counter">
-            <lottie-player src="./star.json" background="transparent" speed="1" style="width: 44px; height: 44px;" loop autoplay></lottie-player>
-            <span id="starsVal">1</span>
+            <lottie-player src="./star.json" background="transparent" speed="1" style="width: 42px; height: 42px;" loop autoplay></lottie-player>
+            <span id="starsVal">10</span>
         </div>
 
-        <!-- ИКСЫ С ЧАЙНИКОМ (ТОЛЬКО САМ X И ЧИСЛО — ПОЯВЛЯЮТСЯ ВО ВРЕМЯ ИВЕНТА) -->
+        <!-- ИКСЫ С ЧАЙНИКОМ (ПОЯВЛЯЮТСЯ ТОЛЬКО ВО ВРЕМЯ ИВЕНТА) -->
         <div class="multiplier-badge" id="multiplierBadge">
-            <lottie-player src="./gift_kettle.json" background="transparent" speed="1" style="width: 32px; height: 32px; opacity: 0.55;" loop autoplay></lottie-player>
+            <lottie-player src="./gift_kettle.json" background="transparent" speed="1" style="width: 30px; height: 30px; opacity: 0.55;" loop autoplay></lottie-player>
             <div class="multiplier" id="multiplierVal">x1.00</div>
         </div>
     </div>
 
-    <!-- КНОПКА ДЕЙСТВИЯ (ЧИСТО БЕЛАЯ, ЧЕРНЫЙ ТЕКСТ) -->
-    <div class="button-container">
+    <!-- БЛОК УПРАВЛЕНИЯ: ВЫБОР СТАВКИ И КНОПКА ЗАПУСКА -->
+    <div class="controls-container">
+        <!-- Панель выбора ставки -->
+        <div class="bet-panel" id="betPanel">
+            <div class="bet-row-main">
+                <div class="bet-stepper">
+                    <button class="bet-step-btn" onclick="adjustBet(-5)">−</button>
+                    <div class="bet-current-box">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 22px; height: 22px;" loop autoplay></lottie-player>
+                        <span class="bet-value-text" id="betDisplay">10</span>
+                    </div>
+                    <button class="bet-step-btn" onclick="adjustBet(5)">+</button>
+                </div>
+            </div>
+            <div class="bet-presets">
+                <button class="preset-btn" onclick="setBet(5)">5</button>
+                <button class="preset-btn active" onclick="setBet(10)">10</button>
+                <button class="preset-btn" onclick="setBet(25)">25</button>
+                <button class="preset-btn" onclick="setBet(50)">50</button>
+                <button class="preset-btn" onclick="doubleBet()">2X</button>
+                <button class="preset-btn" onclick="maxBet()">MAX</button>
+            </div>
+        </div>
+
+        <!-- Главная кнопка действия (Белая, черный текст, премиум Lottie) -->
         <button class="action-button" id="actionBtn" onclick="handleButtonClick()">
             <lottie-player id="btnLottie" src="./gift_pepe.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
-            <span id="btnText">Полетели</span>
+            <span id="btnText">Полетели (10)</span>
         </button>
     </div>
 
     <!-- ========================================= -->
-    <!-- Apple Profile Sheet Modal                 -->
+    <!-- 1. Apple Profile Sheet Modal              -->
     <!-- ========================================= -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeProfile()">
-        <div class="profile-sheet" id="profileSheet" onclick="event.stopPropagation()">
+    <div class="modal-overlay" id="modalOverlay" onclick="closeAllModals()">
+        <div class="sheet-modal" id="profileSheet" onclick="event.stopPropagation()">
             <div class="sheet-handle"></div>
 
-            <!-- Profile Info Header -->
             <div class="profile-header">
                 <div class="profile-avatar-wrapper">
                     <img id="modalAvatar" class="profile-avatar-img" src="" style="display: none;" />
@@ -554,13 +1025,28 @@
                 </div>
             </div>
 
-            <!-- Balance Card -->
+            <!-- Balance Card with Quick Actions -->
             <div class="apple-card">
-                <span class="card-header-label">Баланс Звезд</span>
+                <span class="card-header-label">Баланс Звёзд</span>
                 <div class="balance-row">
-                    <lottie-player src="./star.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
-                    <span class="balance-val" id="profileBalance">0</span>
+                    <div class="balance-val-box">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 30px; height: 30px;" loop autoplay></lottie-player>
+                        <span class="balance-val" id="profileBalance">50</span>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Actions Row: Deposit / Withdraw / Garage -->
+            <div class="sheet-action-btns-row">
+                <button class="sheet-sec-btn" onclick="openDepositModal()">
+                    <span style="color: #30d158; font-weight: 800;">+</span> Пополнить
+                </button>
+                <button class="sheet-sec-btn" onclick="openWithdrawModal()">
+                    <span style="color: #007aff; font-weight: 800;">↑</span> Вывод
+                </button>
+                <button class="sheet-sec-btn" onclick="openGarageModal()">
+                    <span style="color: #ffd60a; font-weight: 800;">★</span> Гараж
+                </button>
             </div>
 
             <!-- Stats 4 Tiles -->
@@ -587,91 +1073,290 @@
             <div class="apple-card">
                 <span class="card-header-label">Последние полёты</span>
                 <div class="history-list" id="historyList">
-                    <span style="font-size: 12px; color: #8c8e94;">Пока нет полетов</span>
+                    <span style="font-size: 11.5px; color: #8c8e94;">Пока нет полётов</span>
                 </div>
             </div>
 
-            <button class="modal-close-btn" onclick="closeProfile()">Готово</button>
+            <button class="modal-close-btn" onclick="closeAllModals()">Закрыть</button>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 2. Garage / Fleet Upgrade Sheet Modal     -->
+        <!-- ========================================= -->
+        <div class="sheet-modal" id="garageSheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+
+            <div class="sheet-title-row">
+                <span class="sheet-title">Гараж ракет</span>
+                <span class="sheet-subtitle">Прокачивай корабли и получай бонусы к звёздам</span>
+            </div>
+
+            <div class="fleet-list" id="fleetList">
+                <!-- Dynamically rendered fleet items -->
+            </div>
+
+            <button class="modal-close-btn" onclick="closeAllModals()">Закрыть</button>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 3. Deposit Sheet Modal (Telegram Stars)    -->
+        <!-- ========================================= -->
+        <div class="sheet-modal" id="depositSheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+
+            <div class="sheet-title-row">
+                <span class="sheet-title">Пополнение звёзд</span>
+                <span class="sheet-subtitle">Оплата через официальные Telegram Stars (XTR)</span>
+            </div>
+
+            <div class="deposit-grid">
+                <div class="deposit-pack-card" onclick="selectDepositPack(50, this)">
+                    <div class="pack-stars-amount">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        50
+                    </div>
+                    <span class="pack-price-tag">50 Stars</span>
+                </div>
+                <div class="deposit-pack-card selected" onclick="selectDepositPack(100, this)">
+                    <div class="pack-stars-amount">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        100
+                    </div>
+                    <span class="pack-price-tag">100 Stars</span>
+                </div>
+                <div class="deposit-pack-card" onclick="selectDepositPack(250, this)">
+                    <div class="pack-stars-amount">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        250
+                    </div>
+                    <span class="pack-price-tag">250 Stars</span>
+                </div>
+                <div class="deposit-pack-card" onclick="selectDepositPack(500, this)">
+                    <div class="pack-stars-amount">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        500
+                    </div>
+                    <span class="pack-price-tag">500 Stars</span>
+                </div>
+                <div class="deposit-pack-card" onclick="selectDepositPack(1000, this)">
+                    <div class="pack-stars-amount">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        1 000
+                    </div>
+                    <span class="pack-price-tag">1 000 Stars</span>
+                </div>
+                <div class="deposit-pack-card" onclick="selectDepositPack(2500, this)">
+                    <div class="pack-stars-amount">
+                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        2 500
+                    </div>
+                    <span class="pack-price-tag">2 500 Stars</span>
+                </div>
+            </div>
+
+            <button class="primary-action-btn" id="payInvoiceBtn" onclick="payTelegramStars()">
+                <lottie-player src="./star.json" background="transparent" speed="1" style="width: 22px; height: 22px;" loop autoplay></lottie-player>
+                <span id="payBtnLabel">Купить 100 Stars</span>
+            </button>
+
+            <!-- Offline test top-up button for quick preview -->
+            <button class="sheet-sec-btn" onclick="testDirectDeposit()">
+                Тест пополнение (+100 ⭐)
+            </button>
+
+            <button class="modal-close-btn" onclick="closeAllModals()">Отмена</button>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 4. Withdraw Sheet Modal                   -->
+        <!-- ========================================= -->
+        <div class="sheet-modal" id="withdrawSheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+
+            <div class="sheet-title-row">
+                <span class="sheet-title">Вывод звёзд</span>
+                <span class="sheet-subtitle">Перевод на Telegram @username или TON-адрес</span>
+            </div>
+
+            <div class="apple-card">
+                <span class="card-header-label">Доступно для вывода</span>
+                <div class="balance-val-box">
+                    <lottie-player src="./star.json" background="transparent" speed="1" style="width: 24px; height: 24px;" loop autoplay></lottie-player>
+                    <span class="balance-val" id="withdrawAvailBalance">50</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-label">Количество звёзд</span>
+                <input type="number" class="ios-input" id="withdrawAmountInput" placeholder="Минимум 10 ⭐" value="25" min="10" />
+                <div class="withdraw-quick-btns">
+                    <button class="quick-btn" onclick="setWithdrawPercent(0.25)">25%</button>
+                    <button class="quick-btn" onclick="setWithdrawPercent(0.50)">50%</button>
+                    <button class="quick-btn" onclick="setWithdrawPercent(0.75)">75%</button>
+                    <button class="quick-btn" onclick="setWithdrawPercent(1.00)">100%</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-label">Реквизиты получения</span>
+                <input type="text" class="ios-input" id="withdrawTargetInput" placeholder="@username или TON кошелек" />
+            </div>
+
+            <button class="primary-action-btn" onclick="submitWithdrawRequest()">
+                Отправить заявку на вывод
+            </button>
+
+            <button class="modal-close-btn" onclick="closeAllModals()">Отмена</button>
         </div>
     </div>
 </div>
 
 <script>
     // ==========================================
-    // Telegram WebApp & User Profile Data
+    // Fleet Configuration (5 Tiers)
     // ==========================================
-    let tgUser = {
-        first_name: 'Player',
-        username: 'rocket_pilot',
-        photo_url: ''
-    };
+    const FLEET = [
+        {
+            id: 0,
+            name: 'Базовая ракета',
+            file: './rocket.json',
+            price: 0,
+            bonus: 0.00,
+            desc: 'Стартовый корабль'
+        },
+        {
+            id: 1,
+            name: 'Ведьмина метла',
+            file: './level_1.json',
+            price: 100,
+            bonus: 0.05,
+            desc: '+5% к выигранным звёздам'
+        },
+        {
+            id: 2,
+            name: 'Игрушечная ракета',
+            file: './level_2.json',
+            price: 300,
+            bonus: 0.10,
+            desc: '+10% к выигранным звёздам'
+        },
+        {
+            id: 3,
+            name: 'Космический крейсер',
+            file: './level_3.json',
+            price: 750,
+            bonus: 0.18,
+            desc: '+18% к выигранным звёздам'
+        },
+        {
+            id: 4,
+            name: 'Золотой самолёт',
+            file: './level_4.json',
+            price: 2000,
+            bonus: 0.30,
+            desc: '+30% к выигранным звёздам • VIP'
+        }
+    ];
 
+    // ==========================================
+    // Telegram WebApp Init
+    // ==========================================
     if (window.Telegram && window.Telegram.WebApp) {
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
-
-        const unsafeUser = window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
-        if (unsafeUser) {
-            tgUser.first_name = unsafeUser.first_name || 'Player';
-            tgUser.username = unsafeUser.username ? '@' + unsafeUser.username : 'id' + unsafeUser.id;
-            tgUser.photo_url = unsafeUser.photo_url || '';
-        }
+        try {
+            window.Telegram.WebApp.setHeaderColor('#0b0c0e');
+            window.Telegram.WebApp.setBackgroundColor('#0b0c0e');
+        } catch(e) {}
     }
 
-    // Применяем профиль в интерфейс
-    function applyUserProfile() {
-        const chipName = document.getElementById('chipName');
-        const chipAvatar = document.getElementById('chipAvatar');
-        const chipInitials = document.getElementById('chipInitials');
-
-        const modalName = document.getElementById('modalName');
-        const modalUsername = document.getElementById('modalUsername');
-        const modalAvatar = document.getElementById('modalAvatar');
-        const modalInitials = document.getElementById('modalInitials');
-
-        chipName.innerText = tgUser.first_name;
-        modalName.innerText = tgUser.first_name;
-        modalUsername.innerText = tgUser.username;
-
-        const initials = (tgUser.first_name[0] || 'U').toUpperCase();
-        chipInitials.innerText = initials;
-        modalInitials.innerText = initials;
-
-        if (tgUser.photo_url) {
-            chipAvatar.src = tgUser.photo_url;
-            chipAvatar.style.display = 'block';
-            chipInitials.style.display = 'none';
-
-            modalAvatar.src = tgUser.photo_url;
-            modalAvatar.style.display = 'block';
-            modalInitials.style.display = 'none';
-        }
+    function showToast(msg) {
+        const t = document.getElementById('toastMsg');
+        t.innerText = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2400);
     }
 
     // ==========================================
-    // LocalStorage Persistent Stats
+    // User Profile & Storage
     // ==========================================
     function getStoredStats() {
-        const raw = localStorage.getItem('rocket_stats');
-        if (raw) {
-            try { return JSON.parse(raw); } catch(e) {}
-        }
-        return {
-            balance: 0,
+        const defaultStats = {
+            balance: 50,
             games: 0,
             wins: 0,
             maxX: 1.00,
-            history: [] // [{ x: 2.14, win: true }]
+            history: []
         };
+        try {
+            const raw = localStorage.getItem('rocket_stats');
+            if (raw) return Object.assign(defaultStats, JSON.parse(raw));
+        } catch(e) {}
+        return defaultStats;
     }
 
     function saveStats(stats) {
         localStorage.setItem('rocket_stats', JSON.stringify(stats));
+        updateHeaderBalance(stats.balance);
+    }
+
+    function getStoredFleet() {
+        const defaultFleet = { unlocked: [0], active: 0 };
+        try {
+            const raw = localStorage.getItem('rocket_fleet');
+            if (raw) return Object.assign(defaultFleet, JSON.parse(raw));
+        } catch(e) {}
+        return defaultFleet;
+    }
+
+    function saveFleet(fleet) {
+        localStorage.setItem('rocket_fleet', JSON.stringify(fleet));
+    }
+
+    function applyUserProfile() {
+        let name = "Игрок";
+        let username = "@player";
+        let avatarUrl = "";
+
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
+            const user = window.Telegram.WebApp.initDataUnsafe.user;
+            if (user) {
+                name = user.first_name || "Игрок";
+                if (user.last_name) name += " " + user.last_name;
+                username = user.username ? "@" + user.username : "id: " + user.id;
+                avatarUrl = user.photo_url || "";
+            }
+        }
+
+        document.getElementById('chipName').innerText = name;
+        document.getElementById('modalName').innerText = name;
+        document.getElementById('modalUsername').innerText = username;
+
+        const initials = name.charAt(0).toUpperCase();
+        document.getElementById('chipInitials').innerText = initials;
+        document.getElementById('modalInitials').innerText = initials;
+
+        if (avatarUrl) {
+            const chipImg = document.getElementById('chipAvatar');
+            const modalImg = document.getElementById('modalAvatar');
+            chipImg.src = avatarUrl;
+            chipImg.style.display = 'block';
+            modalImg.src = avatarUrl;
+            modalImg.style.display = 'block';
+            document.getElementById('chipInitials').style.display = 'none';
+            document.getElementById('modalInitials').style.display = 'none';
+        }
+    }
+
+    function updateHeaderBalance(bal) {
+        document.getElementById('topBalanceVal').innerText = bal.toLocaleString('en-US');
+        document.getElementById('profileBalance').innerText = bal.toLocaleString('en-US');
+        document.getElementById('withdrawAvailBalance').innerText = bal.toLocaleString('en-US');
     }
 
     function updateProfileUI() {
         const stats = getStoredStats();
-        document.getElementById('profileBalance').innerText = stats.balance.toLocaleString('en-US');
+        updateHeaderBalance(stats.balance);
         document.getElementById('statTotalGames').innerText = stats.games;
         document.getElementById('statTotalWins').innerText = stats.wins;
         
@@ -679,10 +1364,9 @@
         document.getElementById('statWinrate').innerText = winrate + '%';
         document.getElementById('statMaxX').innerText = 'x' + stats.maxX.toFixed(2);
 
-        // История последних 6 полетов
         const historyList = document.getElementById('historyList');
         if (stats.history.length === 0) {
-            historyList.innerHTML = '<span style="font-size: 12px; color: #8c8e94;">Пока нет полетов</span>';
+            historyList.innerHTML = '<span style="font-size: 11.5px; color: #8c8e94;">Пока нет полётов</span>';
         } else {
             historyList.innerHTML = '';
             stats.history.slice(0, 6).forEach(item => {
@@ -694,43 +1378,223 @@
         }
     }
 
-    function recordFlightResult(x, won, starsGained) {
+    // ==========================================
+    // Fleet UI & Upgrades
+    // ==========================================
+    function renderFleetUI() {
+        const fleetData = getStoredFleet();
+        const list = document.getElementById('fleetList');
+        list.innerHTML = '';
+
+        FLEET.forEach(ship => {
+            const isUnlocked = fleetData.unlocked.includes(ship.id);
+            const isActive = fleetData.active === ship.id;
+
+            const card = document.createElement('div');
+            card.className = 'fleet-item' + (isActive ? ' active-ship' : '');
+
+            let actionBtnHtml = '';
+            if (isActive) {
+                actionBtnHtml = `<button class="fleet-action-btn btn-equipped">В строю</button>`;
+            } else if (isUnlocked) {
+                actionBtnHtml = `<button class="fleet-action-btn btn-equip" onclick="equipShip(${ship.id})">Выбрать</button>`;
+            } else {
+                actionBtnHtml = `<button class="fleet-action-btn btn-buy" onclick="buyShip(${ship.id})">${ship.price} ⭐</button>`;
+            }
+
+            const bonusStr = ship.bonus > 0 ? `+${Math.round(ship.bonus * 100)}% к выигрышу` : 'Базовый';
+
+            card.innerHTML = `
+                <div class="fleet-left">
+                    <div class="fleet-lottie-box">
+                        <lottie-player src="${ship.file}" background="transparent" speed="1" style="width: 44px; height: 44px;" loop autoplay></lottie-player>
+                    </div>
+                    <div class="fleet-details">
+                        <span class="fleet-name">${ship.name}</span>
+                        <span class="fleet-bonus">${bonusStr}</span>
+                        <span class="fleet-desc">${ship.desc}</span>
+                    </div>
+                </div>
+                ${actionBtnHtml}
+            `;
+            list.appendChild(card);
+        });
+
+        // Update tag on main screen
+        const activeShip = FLEET.find(s => s.id === fleetData.active) || FLEET[0];
+        document.getElementById('activeShipTag').innerText = activeShip.name;
+    }
+
+    function equipShip(shipId) {
+        triggerHaptic('click');
+        const fleetData = getStoredFleet();
+        if (!fleetData.unlocked.includes(shipId)) return;
+        fleetData.active = shipId;
+        saveFleet(fleetData);
+        renderFleetUI();
+
+        const ship = FLEET.find(s => s.id === shipId);
+        if (ship) {
+            mainAnimation.load(ship.file);
+            showToast('Выбран корабль: ' + ship.name);
+        }
+    }
+
+    function buyShip(shipId) {
+        triggerHaptic('click');
+        const ship = FLEET.find(s => s.id === shipId);
+        if (!ship) return;
+
         const stats = getStoredStats();
-        stats.games += 1;
-        if (won) {
-            stats.wins += 1;
-            stats.balance += starsGained;
+        if (stats.balance < ship.price) {
+            triggerHaptic('crash');
+            showToast('Недостаточно звёзд (' + stats.balance + '/' + ship.price + ')');
+            openDepositModal();
+            return;
         }
-        if (x > stats.maxX) {
-            stats.maxX = x;
-        }
-        stats.history.unshift({ x: x, win: won });
-        if (stats.history.length > 10) stats.history.pop();
+
+        stats.balance -= ship.price;
         saveStats(stats);
-        updateProfileUI();
+
+        const fleetData = getStoredFleet();
+        if (!fleetData.unlocked.includes(shipId)) {
+            fleetData.unlocked.push(shipId);
+        }
+        fleetData.active = shipId;
+        saveFleet(fleetData);
+
+        renderFleetUI();
+        mainAnimation.load(ship.file);
+        triggerHaptic('success');
+        playAppleSuccessChime();
+        showToast('Разблокирован: ' + ship.name + '!');
+    }
+
+    function getActiveShip() {
+        const fleetData = getStoredFleet();
+        return FLEET.find(s => s.id === fleetData.active) || FLEET[0];
+    }
+
+    // ==========================================
+    // Modal Sheet Controllers
+    // ==========================================
+    function closeAllModals() {
+        triggerHaptic('click');
+        document.getElementById('modalOverlay').className = 'modal-overlay';
+        document.querySelectorAll('.sheet-modal').forEach(el => el.classList.remove('open'));
     }
 
     function openProfile() {
         triggerHaptic('click');
         updateProfileUI();
         document.getElementById('modalOverlay').className = 'modal-overlay open';
-        document.getElementById('profileSheet').className = 'profile-sheet open';
+        document.querySelectorAll('.sheet-modal').forEach(el => el.classList.remove('open'));
+        document.getElementById('profileSheet').classList.add('open');
     }
 
-    function closeProfile() {
+    function openGarageModal() {
         triggerHaptic('click');
-        document.getElementById('modalOverlay').className = 'modal-overlay';
-        document.getElementById('profileSheet').className = 'profile-sheet';
+        renderFleetUI();
+        document.getElementById('modalOverlay').className = 'modal-overlay open';
+        document.querySelectorAll('.sheet-modal').forEach(el => el.classList.remove('open'));
+        document.getElementById('garageSheet').classList.add('open');
+    }
+
+    let selectedDepositAmount = 100;
+    function openDepositModal() {
+        triggerHaptic('click');
+        document.getElementById('modalOverlay').className = 'modal-overlay open';
+        document.querySelectorAll('.sheet-modal').forEach(el => el.classList.remove('open'));
+        document.getElementById('depositSheet').classList.add('open');
+    }
+
+    function selectDepositPack(amount, cardEl) {
+        triggerHaptic('click');
+        selectedDepositAmount = amount;
+        document.querySelectorAll('.deposit-pack-card').forEach(c => c.classList.remove('selected'));
+        if (cardEl) cardEl.classList.add('selected');
+        document.getElementById('payBtnLabel').innerText = `Купить ${amount} Stars`;
+    }
+
+    function payTelegramStars() {
+        triggerHaptic('click');
+        const botUrl = 'https://t.me/telerocketka_bot?start=deposit_' + selectedDepositAmount;
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
+            window.Telegram.WebApp.openTelegramLink(botUrl);
+        } else {
+            window.open(botUrl, '_blank');
+        }
+        showToast('Открываем счёт на ' + selectedDepositAmount + ' Stars...');
+    }
+
+    function testDirectDeposit() {
+        triggerHaptic('success');
+        const stats = getStoredStats();
+        stats.balance += 100;
+        saveStats(stats);
+        updateProfileUI();
+        playAppleSuccessChime();
+        showToast('+100 Stars зачислено на баланс!');
+        closeAllModals();
+    }
+
+    function openWithdrawModal() {
+        triggerHaptic('click');
+        const stats = getStoredStats();
+        document.getElementById('withdrawAvailBalance').innerText = stats.balance.toLocaleString('en-US');
+        document.getElementById('modalOverlay').className = 'modal-overlay open';
+        document.querySelectorAll('.sheet-modal').forEach(el => el.classList.remove('open'));
+        document.getElementById('withdrawSheet').classList.add('open');
+    }
+
+    function setWithdrawPercent(pct) {
+        triggerHaptic('click');
+        const stats = getStoredStats();
+        const amt = Math.max(10, Math.floor(stats.balance * pct));
+        document.getElementById('withdrawAmountInput').value = amt;
+    }
+
+    function submitWithdrawRequest() {
+        const stats = getStoredStats();
+        const inputVal = parseInt(document.getElementById('withdrawAmountInput').value, 10);
+        const target = document.getElementById('withdrawTargetInput').value.trim();
+
+        if (isNaN(inputVal) || inputVal < 10) {
+            triggerHaptic('crash');
+            showToast('Минимальная сумма вывода — 10 звёзд');
+            return;
+        }
+        if (inputVal > stats.balance) {
+            triggerHaptic('crash');
+            showToast('Недостаточно звёзд на балансе');
+            return;
+        }
+        if (!target) {
+            triggerHaptic('crash');
+            showToast('Укажите реквизиты (@username или TON-адрес)');
+            return;
+        }
+
+        stats.balance -= inputVal;
+        saveStats(stats);
+        triggerHaptic('success');
+        playAppleSuccessChime();
+        showToast('Заявка на ' + inputVal + ' звёзд принята в обработку!');
+        closeAllModals();
+
+        // Notify bot via start link
+        const botUrl = 'https://t.me/telerocketka_bot?start=withdraw_' + inputVal;
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
+            setTimeout(() => {
+                window.Telegram.WebApp.openTelegramLink(botUrl);
+            }, 800);
+        }
     }
 
     function closeApp() {
         if (window.Telegram && window.Telegram.WebApp) {
             window.Telegram.WebApp.close();
         }
-    }
-
-    function toggleMenu() {
-        triggerHaptic('click');
     }
 
     // ==========================================
@@ -809,35 +1673,28 @@
     }
 
     // ==========================================
-    // Фон из оригинальных скриншотов
+    // Background Diamond Pattern
     // ==========================================
     const iconCoords = [
         { left: "14.6%", top: "7%" },
         { left: "50.0%", top: "5%" },
         { left: "82.1%", top: "9%" },
-        
         { left: "36.0%", top: "12%" },
         { left: "64.0%", top: "12%" },
-
         { left: "27.2%", top: "19%" },
         { left: "68.6%", top: "20%" },
-        
         { left: "9.9%",  top: "27%" },
         { left: "84.4%", top: "27%" },
-        
         { left: "7.0%",  top: "40%" },
         { left: "26.8%", top: "38%" },
         { left: "69.0%", top: "38%" },
         { left: "92.0%", top: "40%" },
-        
         { left: "17.0%", top: "49%" },
         { left: "77.3%", top: "49%" },
         { left: "29.2%", top: "55%" },
-        
         { left: "11.8%", top: "65%" },
         { left: "48.0%", top: "68%" },
         { left: "83.6%", top: "65%" },
-
         { left: "25.0%", top: "75%" },
         { left: "72.0%", top: "75%" }
     ];
@@ -852,10 +1709,62 @@
     });
 
     // ==========================================
-    // Игровая логика
+    // Betting System
+    // ==========================================
+    let currentBet = 10;
+
+    function setBet(amount) {
+        triggerHaptic('click');
+        currentBet = Math.max(1, amount);
+        updateBetDisplay();
+        highlightPreset(amount);
+    }
+
+    function adjustBet(delta) {
+        triggerHaptic('click');
+        currentBet = Math.max(1, currentBet + delta);
+        updateBetDisplay();
+        highlightPreset(null);
+    }
+
+    function doubleBet() {
+        triggerHaptic('click');
+        currentBet = currentBet * 2;
+        updateBetDisplay();
+        highlightPreset(null);
+    }
+
+    function maxBet() {
+        triggerHaptic('click');
+        const stats = getStoredStats();
+        currentBet = Math.max(1, stats.balance);
+        updateBetDisplay();
+        highlightPreset(null);
+    }
+
+    function updateBetDisplay() {
+        document.getElementById('betDisplay').innerText = currentBet;
+        document.getElementById('starsVal').innerText = currentBet;
+        if (gameState === 'ready') {
+            document.getElementById('btnText').innerText = `Полетели (${currentBet})`;
+        }
+    }
+
+    function highlightPreset(amount) {
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            if (amount !== null && parseInt(btn.innerText, 10) === amount) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // ==========================================
+    // Game Cycle Logic
     // ==========================================
     let multiplier = 1.00;
-    let stars = 1;
+    let currentFlightStars = 10;
     let starTimer = 0;
     let gameState = 'ready';
     let crashPoint = 0;
@@ -870,6 +1779,7 @@
     const actionBtn = document.getElementById('actionBtn');
     const btnLottie = document.getElementById('btnLottie');
     const btnText = document.getElementById('btnText');
+    const betPanel = document.getElementById('betPanel');
 
     function triggerHaptic(type) {
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
@@ -885,35 +1795,50 @@
         }
     }
 
-    // Исходное состояние
     function initReadyState() {
         gameState = 'ready';
         multiplier = 1.00;
-        stars = 1;
+        currentFlightStars = currentBet;
 
-        starsEl.innerText = '1';
+        starsEl.innerText = currentBet;
+        betPanel.classList.remove('disabled');
 
         // Иксы скрыты в исходном состоянии
         multiplierBadge.className = 'multiplier-badge';
         multiplierEl.innerText = 'x1.00';
         multiplierEl.className = 'multiplier';
 
-        mainAnimation.load('./rocket.json');
+        const activeShip = getActiveShip();
+        mainAnimation.load(activeShip.file);
         rocketContainer.className = 'rocket-container floating';
 
         btnLottie.load('./gift_pepe.json');
-        btnText.innerText = 'Полетели';
+        btnText.innerText = `Полетели (${currentBet})`;
     }
 
-    // Старт полета (ивент)
     function startFlight() {
+        const stats = getStoredStats();
+        if (stats.balance < currentBet) {
+            triggerHaptic('crash');
+            showToast('Недостаточно звёзд для ставки! Пополните баланс.');
+            openDepositModal();
+            return;
+        }
+
+        // Списание ставки
+        stats.balance -= currentBet;
+        saveStats(stats);
+        updateProfileUI();
+
         getAudioCtx();
         gameState = 'flying';
         multiplier = 1.00;
-        stars = 1;
+        currentFlightStars = currentBet;
         starTimer = 0;
         lastTime = performance.now();
         triggerHaptic('start');
+
+        betPanel.classList.add('disabled');
 
         crashPoint = parseFloat((1.50 + Math.random() * 4.30).toFixed(2));
 
@@ -923,7 +1848,7 @@
         multiplierEl.className = 'multiplier';
 
         btnLottie.load('./gift_clover.json');
-        btnText.innerText = 'Забрать (' + stars + ')';
+        btnText.innerText = 'Забрать (' + currentFlightStars + ')';
 
         loop(performance.now());
     }
@@ -934,22 +1859,24 @@
         const delta = Math.min((currentTime - lastTime) / 1000, 0.1);
         lastTime = currentTime;
 
-        // Плавный рост
+        // Плавный рост множителя
         const growthRate = 0.08 + (multiplier - 1.0) * 0.055;
         multiplier += growthRate * delta;
 
-        // Звезды: 1, 2, 3, 4, 5...
-        starTimer += delta * (1.8 + (multiplier - 1.0) * 1.5);
-        if (starTimer >= 1) {
-            stars += Math.floor(starTimer);
-            starTimer = starTimer % 1;
-            starsEl.innerText = stars;
+        // Расчет текущего выигрыша с бонусом активного корабля
+        const ship = getActiveShip();
+        const bonusMultiplier = 1 + ship.bonus;
+        const newCalculatedStars = Math.floor(currentBet * multiplier * bonusMultiplier);
+
+        if (newCalculatedStars > currentFlightStars) {
+            currentFlightStars = newCalculatedStars;
+            starsEl.innerText = currentFlightStars;
             triggerHaptic('tick');
             playStarTickSound();
         }
 
         multiplierEl.innerText = 'x' + multiplier.toFixed(2);
-        btnText.innerText = 'Забрать (' + stars + ')';
+        btnText.innerText = 'Забрать (' + currentFlightStars + ')';
 
         if (multiplier >= crashPoint) {
             triggerCrash();
@@ -964,7 +1891,7 @@
         triggerHaptic('crash');
         playCrashSound();
 
-        // Запись статистики
+        // Запись статистики (проигрыш)
         recordFlightResult(crashPoint, false, 0);
 
         // Взрыв
@@ -977,6 +1904,7 @@
 
         btnLottie.load('./gift_pepe.json');
         btnText.innerText = 'Попробовать снова';
+        betPanel.classList.remove('disabled');
     }
 
     function claimWin() {
@@ -986,15 +1914,32 @@
         triggerHaptic('success');
         playAppleSuccessChime();
 
-        // Запись победы в статистику
-        recordFlightResult(multiplier, true, stars);
+        // Начисление выигрыша
+        recordFlightResult(multiplier, true, currentFlightStars);
 
-        // ТОЛЬКО САМ X И ЧИСЛО В ЗЕЛЕНОМ ЦВЕТЕ (БЕЗ СЛОВА "ЗАБРАЛ")
+        // ТОЛЬКО САМ X И ЧИСЛО В ЗЕЛЕНОМ ЦВЕТЕ
         multiplierEl.innerText = 'x' + multiplier.toFixed(2);
         multiplierEl.className = 'multiplier cashed-text';
 
         btnLottie.load('./gift_pepe.json');
-        btnText.innerText = 'Забрал ' + stars + ' звезд — Еще раз';
+        btnText.innerText = 'Выиграл ' + currentFlightStars + ' — Еще раз';
+        betPanel.classList.remove('disabled');
+    }
+
+    function recordFlightResult(x, won, starsGained) {
+        const stats = getStoredStats();
+        stats.games += 1;
+        if (won) {
+            stats.wins += 1;
+            stats.balance += starsGained;
+        }
+        if (x > stats.maxX) {
+            stats.maxX = x;
+        }
+        stats.history.unshift({ x: x, win: won });
+        if (stats.history.length > 10) stats.history.pop();
+        saveStats(stats);
+        updateProfileUI();
     }
 
     function handleButtonClick() {
@@ -1007,9 +1952,13 @@
         }
     }
 
-    // Старт
+    // ==========================================
+    // Инициализация
+    // ==========================================
     applyUserProfile();
     updateProfileUI();
+    renderFleetUI();
+    updateBetDisplay();
     initReadyState();
 </script>
 </body>
