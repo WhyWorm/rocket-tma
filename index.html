@@ -39,55 +39,6 @@
             overflow: hidden;
         }
 
-        /* Apple iOS Sheet Grabber */
-        .ios-grabber {
-            width: 36px;
-            height: 4.5px;
-            border-radius: 3px;
-            background: rgba(255, 255, 255, 0.22);
-            margin: 8px auto 0 auto;
-            z-index: 20;
-            position: relative;
-        }
-
-        /* Apple Dynamic Island / Live Activity Capsule */
-        .dynamic-island {
-            margin: 6px auto 0 auto;
-            background: #000000;
-            border: 0.5px solid rgba(255, 255, 255, 0.16);
-            border-radius: 20px;
-            padding: 5px 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 7px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.22);
-            z-index: 18;
-            transition: all 0.35s cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        .di-dot {
-            width: 6.5px;
-            height: 6.5px;
-            border-radius: 50%;
-            background: #30d158;
-            box-shadow: 0 0 8px #30d158;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-        .di-dot.pulsing {
-            animation: pulse-dot 1.2s infinite;
-        }
-        @keyframes pulse-dot {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            50% { transform: scale(1.35); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-        .di-text {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #ffffff;
-            letter-spacing: -0.1px;
-            font-variant-numeric: tabular-nums;
-        }
 
         /* Background Pattern */
         .bg-pattern {
@@ -200,29 +151,6 @@
             position: relative;
         }
 
-        /* Apple Warp Aura Glow */
-        .warp-glow {
-            position: absolute;
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(10, 132, 255, 0.28) 0%, rgba(94, 92, 230, 0.12) 45%, rgba(0, 0, 0, 0) 70%);
-            filter: blur(20px);
-            opacity: 0;
-            transform: scale(0.85);
-            transition: opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1), transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .warp-glow.active {
-            opacity: 1;
-            transform: scale(1.15);
-            animation: pulse-warp 1.8s ease-in-out infinite alternate;
-        }
-        @keyframes pulse-warp {
-            0% { transform: scale(1.08); filter: blur(18px); }
-            100% { transform: scale(1.28); filter: blur(26px); }
-        }
 
         .rocket-container {
             width: 190px;
@@ -553,14 +481,6 @@
 <body>
 
 <div class="app-container">
-    <!-- iOS Sheet Grabber -->
-    <div class="ios-grabber"></div>
-
-    <!-- Apple Dynamic Island / Live Activity -->
-    <div class="dynamic-island" id="dynamicIsland">
-        <div class="di-dot" id="diDot"></div>
-        <span class="di-text" id="diText">Ready to Launch</span>
-    </div>
 
     <!-- Background Pattern -->
     <div class="bg-pattern" id="bgPattern"></div>
@@ -587,8 +507,6 @@
     </div>
 
     <div class="content">
-        <!-- Space Warp Glow behind Rocket -->
-        <div class="warp-glow" id="warpGlow"></div>
 
         <!-- АНИМИРОВАННАЯ РАКЕТКА / ВЗРЫВ -->
         <div class="rocket-container floating" id="rocketContainer">
@@ -944,11 +862,6 @@
     let animFrame = null;
     let lastTime = 0;
 
-    const dynamicIsland = document.getElementById('dynamicIsland');
-    const diDot = document.getElementById('diDot');
-    const diText = document.getElementById('diText');
-
-    const warpGlow = document.getElementById('warpGlow');
     const multiplierBadge = document.getElementById('multiplierBadge');
     const multiplierEl = document.getElementById('multiplierVal');
     const starsEl = document.getElementById('starsVal');
@@ -978,13 +891,7 @@
         multiplier = 1.00;
         stars = 1;
 
-        diDot.style.background = '#30d158';
-        diDot.style.boxShadow = '0 0 8px #30d158';
-        diDot.className = 'di-dot';
-        diText.innerText = 'Ready to Launch';
-
         starsEl.innerText = '1';
-        warpGlow.className = 'warp-glow';
 
         // Иксы скрыты в исходном состоянии
         multiplierBadge.className = 'multiplier-badge';
@@ -1007,13 +914,6 @@
         starTimer = 0;
         lastTime = performance.now();
         triggerHaptic('start');
-
-        diDot.style.background = '#32ade6';
-        diDot.style.boxShadow = '0 0 10px #32ade6';
-        diDot.className = 'di-dot pulsing';
-        diText.innerText = 'Altitude 1.00x';
-
-        warpGlow.className = 'warp-glow active';
 
         crashPoint = parseFloat((1.50 + Math.random() * 4.30).toFixed(2));
 
@@ -1050,7 +950,6 @@
 
         multiplierEl.innerText = 'x' + multiplier.toFixed(2);
         btnText.innerText = 'Забрать (' + stars + ')';
-        diText.innerText = 'Altitude ' + multiplier.toFixed(2) + 'x';
 
         if (multiplier >= crashPoint) {
             triggerCrash();
@@ -1067,13 +966,6 @@
 
         // Запись статистики
         recordFlightResult(crashPoint, false, 0);
-
-        diDot.style.background = '#ff453a';
-        diDot.style.boxShadow = '0 0 10px #ff453a';
-        diDot.className = 'di-dot pulsing';
-        diText.innerText = 'Signal Lost @ ' + crashPoint.toFixed(2) + 'x';
-
-        warpGlow.className = 'warp-glow';
 
         // Взрыв
         mainAnimation.load('./fire.json');
@@ -1096,13 +988,6 @@
 
         // Запись победы в статистику
         recordFlightResult(multiplier, true, stars);
-
-        diDot.style.background = '#ffd60a';
-        diDot.style.boxShadow = '0 0 10px #ffd60a';
-        diDot.className = 'di-dot';
-        diText.innerText = 'Collected ' + stars + ' Stars!';
-
-        warpGlow.className = 'warp-glow';
 
         // ТОЛЬКО САМ X И ЧИСЛО В ЗЕЛЕНОМ ЦВЕТЕ (БЕЗ СЛОВА "ЗАБРАЛ")
         multiplierEl.innerText = 'x' + multiplier.toFixed(2);
