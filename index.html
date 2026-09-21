@@ -191,15 +191,19 @@
             <span id="starsVal">1,000</span>
         </div>
 
-        <!-- ИКСЫ (УМНОЖИТЕЛЬ) -->
-        <div class="multiplier" id="multiplierVal">
-            x1.00
+        <!-- ИКСЫ С ЧАЙНИКОМ (УМЕНЬШЕННАЯ ПРОЗРАЧНОСТЬ) -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px;">
+            <lottie-player src="./gift_kettle.json" background="transparent" speed="1" style="width: 34px; height: 34px; opacity: 0.55;" loop autoplay></lottie-player>
+            <div class="multiplier" id="multiplierVal">x1.00</div>
         </div>
     </div>
 
-    <!-- КНОПКА ДЕЙСТВИЯ -->
+    <!-- КНОПКА ДЕЙСТВИЯ С АНИМИРОВАННЫМИ ПОДАРКАМИ -->
     <div class="button-container">
-        <button class="action-button" id="actionBtn" onclick="handleButtonClick()">Забрать</button>
+        <button class="action-button" id="actionBtn" onclick="handleButtonClick()" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <lottie-player id="btnLottie" src="./gift_pepe.json" background="transparent" speed="1" style="width: 30px; height: 30px;" loop autoplay></lottie-player>
+            <span id="btnText">Полетели 🚀</span>
+        </button>
     </div>
 </div>
 
@@ -278,6 +282,9 @@
     const mainAnimation = document.getElementById('mainAnimation');
     const actionBtn = document.getElementById('actionBtn');
 
+    const btnLottie = document.getElementById('btnLottie');
+    const btnText = document.getElementById('btnText');
+
     function triggerHaptic(type) {
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
             if (type === 'crash') {
@@ -302,7 +309,9 @@
         mainAnimation.load('./rocket.json');
         rocketContainer.className = 'rocket-container floating';
 
-        actionBtn.innerText = 'Полетели 🚀';
+        // Кнопка запустить с Пепе
+        btnLottie.load('./gift_pepe.json');
+        btnText.innerText = 'Полетели 🚀';
         actionBtn.className = 'action-button btn-restart';
     }
 
@@ -312,11 +321,13 @@
         stars = INITIAL_STARS;
         triggerHaptic('start');
 
-        // Случайный краш от 1.45x до 5.50x
         crashPoint = parseFloat((1.45 + Math.random() * 4.05).toFixed(2));
 
         multiplierEl.className = 'multiplier';
-        actionBtn.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
+        
+        // Кнопка забрать с Клевером
+        btnLottie.load('./gift_clover.json');
+        btnText.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
         actionBtn.className = 'action-button btn-claim';
 
         loop();
@@ -331,7 +342,7 @@
 
         multiplierEl.innerText = 'x' + multiplier.toFixed(2);
         starsEl.innerText = stars.toLocaleString('en-US');
-        actionBtn.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
+        btnText.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
 
         if (multiplier >= crashPoint) {
             triggerCrash();
@@ -352,7 +363,9 @@
         multiplierEl.innerText = 'ВЗОРВАЛСЯ @ x' + crashPoint.toFixed(2);
         multiplierEl.className = 'multiplier crashed-text';
 
-        actionBtn.innerText = 'Попробовать снова 🚀';
+        // Кнопка повтора с Пепе
+        btnLottie.load('./gift_pepe.json');
+        btnText.innerText = 'Попробовать снова 🚀';
         actionBtn.className = 'action-button btn-restart';
     }
 
@@ -365,7 +378,8 @@
         multiplierEl.innerText = 'ЗАБРАЛ @ x' + multiplier.toFixed(2);
         multiplierEl.className = 'multiplier cashed-text';
 
-        actionBtn.innerText = 'Выиграл ⭐ ' + stars.toLocaleString('en-US') + ' — Еще раз 🚀';
+        btnLottie.load('./gift_pepe.json');
+        btnText.innerText = 'Выиграл ⭐ ' + stars.toLocaleString('en-US') + ' — Еще раз 🚀';
         actionBtn.className = 'action-button btn-claim';
     }
 
