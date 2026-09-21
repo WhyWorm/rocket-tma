@@ -111,19 +111,70 @@
         /* Apple Top Controls */
         .top-bar {
             display: flex;
-            justify-content: flex-end;
-            padding: 12px 18px;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             width: 100%;
             z-index: 15;
         }
+        .profile-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 0.5px solid rgba(255, 255, 255, 0.14);
+            border-radius: 20px;
+            padding: 3px 10px 3px 4px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: transform 0.12s ease, background 0.15s ease;
+        }
+        .profile-chip:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.16);
+        }
+        .chip-avatar-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007aff, #5856d6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .chip-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .chip-initials {
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .chip-name {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #f2f3f5;
+            max-width: 90px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .top-right-btns {
+            display: flex;
+            gap: 8px;
+        }
         .icon-btn {
             background: rgba(255, 255, 255, 0.08);
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -149,7 +200,7 @@
             position: relative;
         }
 
-        /* Apple Warp Aura Glow behind Rocket */
+        /* Apple Warp Aura Glow */
         .warp-glow {
             position: absolute;
             width: 240px;
@@ -224,7 +275,7 @@
             align-items: center;
             justify-content: center;
             gap: 7px;
-            padding: 6px 16px 6px 10px;
+            padding: 6px 18px 6px 12px;
             background: rgba(255, 255, 255, 0.08);
             border: 0.5px solid rgba(255, 255, 255, 0.16);
             border-radius: 24px;
@@ -244,9 +295,9 @@
             pointer-events: auto;
         }
         .multiplier {
-            font-size: 19px;
+            font-size: 20px;
             color: #f2f3f5;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.2px;
             font-variant-numeric: tabular-nums;
             transition: color 0.2s ease;
@@ -292,6 +343,211 @@
         #btnText {
             font-variant-numeric: tabular-nums;
         }
+
+        /* ========================================= */
+        /* Apple Profile Modal (iOS Bottom Sheet)    */
+        /* ========================================= */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .profile-sheet {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-height: 85vh;
+            background: #141519;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px 28px 0 0;
+            padding: 12px 20px 32px 20px;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.85);
+            transform: translateY(100%);
+            transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+            z-index: 101;
+        }
+        .profile-sheet.open {
+            transform: translateY(0);
+        }
+        .sheet-handle {
+            width: 36px;
+            height: 4.5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.25);
+            margin: 0 auto;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 4px 0;
+        }
+        .profile-avatar-wrapper {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007aff, #5856d6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.35);
+        }
+        .profile-avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-avatar-initials {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .profile-badge-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #30d158;
+            border: 2px solid #141519;
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .profile-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+        .profile-username {
+            font-size: 13px;
+            color: #8c8e94;
+            font-weight: 500;
+        }
+
+        /* Apple Card: Balance */
+        .apple-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .card-header-label {
+            font-size: 11.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #8c8e94;
+            letter-spacing: 0.5px;
+        }
+        .balance-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .balance-val {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Apple Grid 4 Stat Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .stat-tile {
+            background: rgba(255, 255, 255, 0.04);
+            border: 0.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-tile-title {
+            font-size: 11px;
+            font-weight: 500;
+            color: #8c8e94;
+        }
+        .stat-tile-val {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f2f3f5;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* History Ticker */
+        .history-list {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+        }
+        .history-pill {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+        .pill-win {
+            background: rgba(48, 209, 88, 0.15);
+            color: #30d158;
+            border: 0.5px solid rgba(48, 209, 88, 0.3);
+        }
+        .pill-crash {
+            background: rgba(255, 69, 58, 0.15);
+            color: #ff453a;
+            border: 0.5px solid rgba(255, 69, 58, 0.3);
+        }
+
+        .modal-close-btn {
+            width: 100%;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.1s ease;
+        }
+        .modal-close-btn:active {
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body>
@@ -311,11 +567,22 @@
 
     <!-- Top Bar Controls -->
     <div class="top-bar">
-        <div class="icon-btn" onclick="toggleMenu()">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>
+        <!-- Profile Chip Button -->
+        <div class="profile-chip" onclick="openProfile()">
+            <div class="chip-avatar-box">
+                <img id="chipAvatar" class="chip-avatar" src="" style="display: none;" />
+                <span id="chipInitials" class="chip-initials">U</span>
+            </div>
+            <span class="chip-name" id="chipName">Player</span>
         </div>
-        <div class="icon-btn" onclick="closeApp()">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+
+        <div class="top-right-btns">
+            <div class="icon-btn" onclick="toggleMenu()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>
+            </div>
+            <div class="icon-btn" onclick="closeApp()">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
         </div>
     </div>
 
@@ -334,7 +601,7 @@
             <span id="starsVal">1</span>
         </div>
 
-        <!-- ИКСЫ С ЧАЙНИКОМ (ПОЯВЛЯЮТСЯ ТОЛЬКО ВО ВРЕМЯ ИВЕНТА) -->
+        <!-- ИКСЫ С ЧАЙНИКОМ (ТОЛЬКО САМ X И ЧИСЛО — ПОЯВЛЯЮТСЯ ВО ВРЕМЯ ИВЕНТА) -->
         <div class="multiplier-badge" id="multiplierBadge">
             <lottie-player src="./gift_kettle.json" background="transparent" speed="1" style="width: 32px; height: 32px; opacity: 0.55;" loop autoplay></lottie-player>
             <div class="multiplier" id="multiplierVal">x1.00</div>
@@ -348,13 +615,194 @@
             <span id="btnText">Полетели</span>
         </button>
     </div>
+
+    <!-- ========================================= -->
+    <!-- Apple Profile Sheet Modal                 -->
+    <!-- ========================================= -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeProfile()">
+        <div class="profile-sheet" id="profileSheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+
+            <!-- Profile Info Header -->
+            <div class="profile-header">
+                <div class="profile-avatar-wrapper">
+                    <img id="modalAvatar" class="profile-avatar-img" src="" style="display: none;" />
+                    <span id="modalInitials" class="profile-avatar-initials">U</span>
+                    <div class="profile-badge-dot"></div>
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name" id="modalName">Player</span>
+                    <span class="profile-username" id="modalUsername">@player</span>
+                </div>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="apple-card">
+                <span class="card-header-label">Баланс Звезд</span>
+                <div class="balance-row">
+                    <lottie-player src="./star.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
+                    <span class="balance-val" id="profileBalance">0</span>
+                </div>
+            </div>
+
+            <!-- Stats 4 Tiles -->
+            <div class="stats-grid">
+                <div class="stat-tile">
+                    <span class="stat-tile-title">Полётов</span>
+                    <span class="stat-tile-val" id="statTotalGames">0</span>
+                </div>
+                <div class="stat-tile">
+                    <span class="stat-tile-title">Успешных</span>
+                    <span class="stat-tile-val" id="statTotalWins" style="color: #30d158;">0</span>
+                </div>
+                <div class="stat-tile">
+                    <span class="stat-tile-title">Винрейт</span>
+                    <span class="stat-tile-val" id="statWinrate">0%</span>
+                </div>
+                <div class="stat-tile">
+                    <span class="stat-tile-title">Рекордный X</span>
+                    <span class="stat-tile-val" id="statMaxX" style="color: #ffd60a;">x1.00</span>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="apple-card">
+                <span class="card-header-label">Последние полёты</span>
+                <div class="history-list" id="historyList">
+                    <span style="font-size: 12px; color: #8c8e94;">Пока нет полетов</span>
+                </div>
+            </div>
+
+            <button class="modal-close-btn" onclick="closeProfile()">Готово</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    // Инициализация Telegram WebApp
+    // ==========================================
+    // Telegram WebApp & User Profile Data
+    // ==========================================
+    let tgUser = {
+        first_name: 'Player',
+        username: 'rocket_pilot',
+        photo_url: ''
+    };
+
     if (window.Telegram && window.Telegram.WebApp) {
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
+
+        const unsafeUser = window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
+        if (unsafeUser) {
+            tgUser.first_name = unsafeUser.first_name || 'Player';
+            tgUser.username = unsafeUser.username ? '@' + unsafeUser.username : 'id' + unsafeUser.id;
+            tgUser.photo_url = unsafeUser.photo_url || '';
+        }
+    }
+
+    // Применяем профиль в интерфейс
+    function applyUserProfile() {
+        const chipName = document.getElementById('chipName');
+        const chipAvatar = document.getElementById('chipAvatar');
+        const chipInitials = document.getElementById('chipInitials');
+
+        const modalName = document.getElementById('modalName');
+        const modalUsername = document.getElementById('modalUsername');
+        const modalAvatar = document.getElementById('modalAvatar');
+        const modalInitials = document.getElementById('modalInitials');
+
+        chipName.innerText = tgUser.first_name;
+        modalName.innerText = tgUser.first_name;
+        modalUsername.innerText = tgUser.username;
+
+        const initials = (tgUser.first_name[0] || 'U').toUpperCase();
+        chipInitials.innerText = initials;
+        modalInitials.innerText = initials;
+
+        if (tgUser.photo_url) {
+            chipAvatar.src = tgUser.photo_url;
+            chipAvatar.style.display = 'block';
+            chipInitials.style.display = 'none';
+
+            modalAvatar.src = tgUser.photo_url;
+            modalAvatar.style.display = 'block';
+            modalInitials.style.display = 'none';
+        }
+    }
+
+    // ==========================================
+    // LocalStorage Persistent Stats
+    // ==========================================
+    function getStoredStats() {
+        const raw = localStorage.getItem('rocket_stats');
+        if (raw) {
+            try { return JSON.parse(raw); } catch(e) {}
+        }
+        return {
+            balance: 0,
+            games: 0,
+            wins: 0,
+            maxX: 1.00,
+            history: [] // [{ x: 2.14, win: true }]
+        };
+    }
+
+    function saveStats(stats) {
+        localStorage.setItem('rocket_stats', JSON.stringify(stats));
+    }
+
+    function updateProfileUI() {
+        const stats = getStoredStats();
+        document.getElementById('profileBalance').innerText = stats.balance.toLocaleString('en-US');
+        document.getElementById('statTotalGames').innerText = stats.games;
+        document.getElementById('statTotalWins').innerText = stats.wins;
+        
+        const winrate = stats.games > 0 ? Math.round((stats.wins / stats.games) * 100) : 0;
+        document.getElementById('statWinrate').innerText = winrate + '%';
+        document.getElementById('statMaxX').innerText = 'x' + stats.maxX.toFixed(2);
+
+        // История последних 6 полетов
+        const historyList = document.getElementById('historyList');
+        if (stats.history.length === 0) {
+            historyList.innerHTML = '<span style="font-size: 12px; color: #8c8e94;">Пока нет полетов</span>';
+        } else {
+            historyList.innerHTML = '';
+            stats.history.slice(0, 6).forEach(item => {
+                const span = document.createElement('span');
+                span.className = 'history-pill ' + (item.win ? 'pill-win' : 'pill-crash');
+                span.innerText = 'x' + item.x.toFixed(2);
+                historyList.appendChild(span);
+            });
+        }
+    }
+
+    function recordFlightResult(x, won, starsGained) {
+        const stats = getStoredStats();
+        stats.games += 1;
+        if (won) {
+            stats.wins += 1;
+            stats.balance += starsGained;
+        }
+        if (x > stats.maxX) {
+            stats.maxX = x;
+        }
+        stats.history.unshift({ x: x, win: won });
+        if (stats.history.length > 10) stats.history.pop();
+        saveStats(stats);
+        updateProfileUI();
+    }
+
+    function openProfile() {
+        triggerHaptic('click');
+        updateProfileUI();
+        document.getElementById('modalOverlay').className = 'modal-overlay open';
+        document.getElementById('profileSheet').className = 'profile-sheet open';
+    }
+
+    function closeProfile() {
+        triggerHaptic('click');
+        document.getElementById('modalOverlay').className = 'modal-overlay';
+        document.getElementById('profileSheet').className = 'profile-sheet';
     }
 
     function closeApp() {
@@ -381,7 +829,6 @@
         return audioCtx;
     }
 
-    // Тонкий тактильный клик при наборе звезды
     function playStarTickSound() {
         try {
             const ctx = getAudioCtx();
@@ -399,11 +846,9 @@
         } catch(e) {}
     }
 
-    // Фирменный двойной Apple Pay колокольчик на выигрыш (D5 -> A5)
     function playAppleSuccessChime() {
         try {
             const ctx = getAudioCtx();
-            // Нота 1
             const osc1 = ctx.createOscillator();
             const gain1 = ctx.createGain();
             osc1.type = 'sine';
@@ -415,7 +860,6 @@
             osc1.start();
             osc1.stop(ctx.currentTime + 0.28);
 
-            // Нота 2 (октава)
             const osc2 = ctx.createOscillator();
             const gain2 = ctx.createGain();
             osc2.type = 'sine';
@@ -429,7 +873,6 @@
         } catch(e) {}
     }
 
-    // Мягкий электронный бас-краш
     function playCrashSound() {
         try {
             const ctx = getAudioCtx();
@@ -535,19 +978,15 @@
         multiplier = 1.00;
         stars = 1;
 
-        // Dynamic Island: Готов
         diDot.style.background = '#30d158';
         diDot.style.boxShadow = '0 0 8px #30d158';
         diDot.className = 'di-dot';
         diText.innerText = 'Ready to Launch';
 
-        // Звезды
         starsEl.innerText = '1';
-
-        // Свечение варпа выключено
         warpGlow.className = 'warp-glow';
 
-        // Иксы скрыты
+        // Иксы скрыты в исходном состоянии
         multiplierBadge.className = 'multiplier-badge';
         multiplierEl.innerText = 'x1.00';
         multiplierEl.className = 'multiplier';
@@ -555,12 +994,11 @@
         mainAnimation.load('./rocket.json');
         rocketContainer.className = 'rocket-container floating';
 
-        // Кнопка запустить с Пепе
         btnLottie.load('./gift_pepe.json');
         btnText.innerText = 'Полетели';
     }
 
-    // Запуск полета (старт ивента)
+    // Старт полета (ивент)
     function startFlight() {
         getAudioCtx();
         gameState = 'flying';
@@ -570,24 +1008,20 @@
         lastTime = performance.now();
         triggerHaptic('start');
 
-        // Dynamic Island: В полете
         diDot.style.background = '#32ade6';
         diDot.style.boxShadow = '0 0 10px #32ade6';
         diDot.className = 'di-dot pulsing';
         diText.innerText = 'Altitude 1.00x';
 
-        // Включаем варп свечение
         warpGlow.className = 'warp-glow active';
 
-        // Случайный краш
         crashPoint = parseFloat((1.50 + Math.random() * 4.30).toFixed(2));
 
-        // Иксы появляются
+        // ИКСЫ ПОЯВЛЯЮТСЯ ВО ВРЕМЯ ИВЕНТА
         multiplierBadge.className = 'multiplier-badge visible';
         multiplierEl.innerText = 'x1.00';
         multiplierEl.className = 'multiplier';
 
-        // Кнопка забрать с Клевером
         btnLottie.load('./gift_clover.json');
         btnText.innerText = 'Забрать (' + stars + ')';
 
@@ -600,7 +1034,7 @@
         const delta = Math.min((currentTime - lastTime) / 1000, 0.1);
         lastTime = currentTime;
 
-        // Плавный рост икса
+        // Плавный рост
         const growthRate = 0.08 + (multiplier - 1.0) * 0.055;
         multiplier += growthRate * delta;
 
@@ -631,23 +1065,24 @@
         triggerHaptic('crash');
         playCrashSound();
 
-        // Dynamic Island: Краш
+        // Запись статистики
+        recordFlightResult(crashPoint, false, 0);
+
         diDot.style.background = '#ff453a';
         diDot.style.boxShadow = '0 0 10px #ff453a';
         diDot.className = 'di-dot pulsing';
         diText.innerText = 'Signal Lost @ ' + crashPoint.toFixed(2) + 'x';
 
-        // Гасим варп
         warpGlow.className = 'warp-glow';
 
         // Взрыв
         mainAnimation.load('./fire.json');
         rocketContainer.className = 'rocket-container shake';
 
-        multiplierEl.innerText = 'ВЗОРВАЛСЯ @ x' + crashPoint.toFixed(2);
+        // ТОЛЬКО САМ X И ЧИСЛО В КРАСНОМ ЦВЕТЕ
+        multiplierEl.innerText = 'x' + crashPoint.toFixed(2);
         multiplierEl.className = 'multiplier crashed-text';
 
-        // Кнопка повтора с Пепе
         btnLottie.load('./gift_pepe.json');
         btnText.innerText = 'Попробовать снова';
     }
@@ -659,7 +1094,9 @@
         triggerHaptic('success');
         playAppleSuccessChime();
 
-        // Dynamic Island: Успех
+        // Запись победы в статистику
+        recordFlightResult(multiplier, true, stars);
+
         diDot.style.background = '#ffd60a';
         diDot.style.boxShadow = '0 0 10px #ffd60a';
         diDot.className = 'di-dot';
@@ -667,7 +1104,8 @@
 
         warpGlow.className = 'warp-glow';
 
-        multiplierEl.innerText = 'ЗАБРАЛ @ x' + multiplier.toFixed(2);
+        // ТОЛЬКО САМ X И ЧИСЛО В ЗЕЛЕНОМ ЦВЕТЕ (БЕЗ СЛОВА "ЗАБРАЛ")
+        multiplierEl.innerText = 'x' + multiplier.toFixed(2);
         multiplierEl.className = 'multiplier cashed-text';
 
         btnLottie.load('./gift_pepe.json');
@@ -684,7 +1122,9 @@
         }
     }
 
-    // Исходное состояние при загрузке
+    // Старт
+    applyUserProfile();
+    updateProfileUI();
     initReadyState();
 </script>
 </body>
