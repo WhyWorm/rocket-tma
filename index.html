@@ -39,7 +39,7 @@
             overflow: hidden;
         }
 
-        /* Background Pattern */
+        /* Background Pattern - GPU optimized */
         .bg-pattern {
             position: absolute;
             top: 0;
@@ -48,14 +48,15 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
+            transform: translateZ(0);
+            contain: strict;
         }
         .bg-pattern img {
             position: absolute;
             width: 24px;
             height: 24px;
-            opacity: 0.15;
+            opacity: 0.12;
             transform: translate(-50%, -50%);
-            filter: grayscale(100%) brightness(1.2);
         }
 
         /* Apple Top Controls */
@@ -213,16 +214,18 @@
             align-items: center;
             position: relative;
             z-index: 2;
-            filter: drop-shadow(0px 12px 32px rgba(0, 0, 0, 0.8));
+            transform: translateZ(0);
+            will-change: transform;
             transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
         }
         .floating {
             animation: float 2.6s ease-in-out infinite;
+            will-change: transform;
         }
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
+            0% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -8px, 0); }
+            100% { transform: translate3d(0, 0, 0); }
         }
         .shake {
             animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
@@ -964,7 +967,7 @@
 
         <!-- Top Balance Pill -->
         <div class="top-balance-pill" onclick="openDepositModal()">
-            <lottie-player src="./star.json" background="transparent" speed="1" style="width: 18px; height: 18px;" loop autoplay></lottie-player>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <span class="top-balance-val" id="topBalanceVal">50</span>
             <span class="top-balance-plus">+</span>
         </div>
@@ -1026,7 +1029,7 @@
                 <div class="bet-stepper">
                     <button class="bet-step-btn" onclick="adjustBet(-5)">−</button>
                     <div class="bet-current-box">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 22px; height: 22px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         <span class="bet-value-text" id="betDisplay">10</span>
                     </div>
                     <button class="bet-step-btn" onclick="adjustBet(5)">+</button>
@@ -1156,42 +1159,42 @@
             <div class="deposit-grid">
                 <div class="deposit-pack-card" onclick="selectDepositPack(50, this)">
                     <div class="pack-stars-amount">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         50
                     </div>
                     <span class="pack-price-tag">50 Stars</span>
                 </div>
                 <div class="deposit-pack-card selected" onclick="selectDepositPack(100, this)">
                     <div class="pack-stars-amount">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         100
                     </div>
                     <span class="pack-price-tag">100 Stars</span>
                 </div>
                 <div class="deposit-pack-card" onclick="selectDepositPack(250, this)">
                     <div class="pack-stars-amount">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         250
                     </div>
                     <span class="pack-price-tag">250 Stars</span>
                 </div>
                 <div class="deposit-pack-card" onclick="selectDepositPack(500, this)">
                     <div class="pack-stars-amount">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         500
                     </div>
                     <span class="pack-price-tag">500 Stars</span>
                 </div>
                 <div class="deposit-pack-card" onclick="selectDepositPack(1000, this)">
                     <div class="pack-stars-amount">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         1 000
                     </div>
                     <span class="pack-price-tag">1 000 Stars</span>
                 </div>
                 <div class="deposit-pack-card" onclick="selectDepositPack(2500, this)">
                     <div class="pack-stars-amount">
-                        <lottie-player src="./star.json" background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></lottie-player>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         2 500
                     </div>
                     <span class="pack-price-tag">2 500 Stars</span>
@@ -1199,7 +1202,7 @@
             </div>
 
             <button class="primary-action-btn" id="payInvoiceBtn" onclick="payTelegramStars()">
-                <lottie-player src="./star.json" background="transparent" speed="1" style="width: 22px; height: 22px;" loop autoplay></lottie-player>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 <span id="payBtnLabel">Купить 100 Stars</span>
             </button>
 
@@ -1225,7 +1228,7 @@
             <div class="apple-card">
                 <span class="card-header-label">Доступно для вывода</span>
                 <div class="balance-val-box">
-                    <lottie-player src="./star.json" background="transparent" speed="1" style="width: 24px; height: 24px;" loop autoplay></lottie-player>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     <span class="balance-val" id="withdrawAvailBalance">50</span>
                 </div>
             </div>
@@ -1523,6 +1526,16 @@
         return FLEET.find(s => s.id === fleetData.active) || FLEET[0];
     }
 
+    function updateActiveShipDisplay() {
+        const fleetData = getStoredFleet();
+        const activeShip = FLEET.find(s => s.id === fleetData.active) || FLEET[0];
+        document.getElementById('activeShipTag').innerText = activeShip.name;
+        const perkTag = document.getElementById('activeShipPerkTag');
+        if (perkTag) {
+            perkTag.innerText = activeShip.bonus > 0 ? `+${Math.round(activeShip.bonus * 100)}%` : '+0%';
+        }
+    }
+
     // ==========================================
     // Modal Sheet Controllers
     // ==========================================
@@ -1530,6 +1543,11 @@
         triggerHaptic('click');
         document.getElementById('modalOverlay').className = 'modal-overlay';
         document.querySelectorAll('.sheet-modal').forEach(el => el.classList.remove('open'));
+        // Unload heavy fleet Lottie players from memory & GPU composite tree
+        setTimeout(() => {
+            const list = document.getElementById('fleetList');
+            if (list) list.innerHTML = '';
+        }, 320);
     }
 
     function openProfile() {
@@ -1901,6 +1919,9 @@
         loop(performance.now());
     }
 
+    let lastRenderedX = '';
+    let lastTickAudioTime = 0;
+
     function loop(currentTime) {
         if (gameState !== 'flying') return;
 
@@ -1919,12 +1940,20 @@
         if (newCalculatedStars > currentFlightStars) {
             currentFlightStars = newCalculatedStars;
             starsEl.innerText = currentFlightStars;
-            triggerHaptic('tick');
-            playStarTickSound();
+            btnText.innerText = 'Забрать (' + currentFlightStars + ')';
+            const now = performance.now();
+            if (now - lastTickAudioTime > 80) {
+                triggerHaptic('tick');
+                playStarTickSound();
+                lastTickAudioTime = now;
+            }
         }
 
-        multiplierEl.innerText = 'x' + multiplier.toFixed(2);
-        btnText.innerText = 'Забрать (' + currentFlightStars + ')';
+        const currentXStr = 'x' + multiplier.toFixed(2);
+        if (currentXStr !== lastRenderedX) {
+            multiplierEl.innerText = currentXStr;
+            lastRenderedX = currentXStr;
+        }
 
         if (multiplier >= crashPoint) {
             triggerCrash();
@@ -2005,7 +2034,7 @@
     // ==========================================
     applyUserProfile();
     updateProfileUI();
-    renderFleetUI();
+    updateActiveShipDisplay();
     updateBetDisplay();
     initReadyState();
 </script>
