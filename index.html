@@ -142,24 +142,27 @@
         }
         .action-button {
             width: 100%;
-            background-color: #2b5f8c;
-            color: white;
+            background-color: #ffffff !important;
+            color: #000000 !important;
             border: none;
             border-radius: 12px;
             padding: 16px;
             font-size: 17px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: opacity 0.15s, transform 0.1s;
         }
         .action-button:active {
             transform: scale(0.98);
+            opacity: 0.9;
         }
         .btn-claim {
-            background-color: #328336 !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
         }
         .btn-restart {
-            background-color: #2b5f8c !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
         }
     </style>
 </head>
@@ -202,7 +205,7 @@
     <div class="button-container">
         <button class="action-button" id="actionBtn" onclick="handleButtonClick()" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
             <lottie-player id="btnLottie" src="./gift_pepe.json" background="transparent" speed="1" style="width: 30px; height: 30px;" loop autoplay></lottie-player>
-            <span id="btnText">Полетели 🚀</span>
+            <span id="btnText">Полетели</span>
         </button>
     </div>
 </div>
@@ -311,7 +314,7 @@
 
         // Кнопка запустить с Пепе
         btnLottie.load('./gift_pepe.json');
-        btnText.innerText = 'Полетели 🚀';
+        btnText.innerText = 'Полетели';
         actionBtn.className = 'action-button btn-restart';
     }
 
@@ -327,7 +330,7 @@
         
         // Кнопка забрать с Клевером
         btnLottie.load('./gift_clover.json');
-        btnText.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
+        btnText.innerText = 'Забрать ' + stars.toLocaleString('en-US');
         actionBtn.className = 'action-button btn-claim';
 
         loop();
@@ -342,7 +345,7 @@
 
         multiplierEl.innerText = 'x' + multiplier.toFixed(2);
         starsEl.innerText = stars.toLocaleString('en-US');
-        btnText.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
+        btnText.innerText = 'Забрать ' + stars.toLocaleString('en-US');
 
         if (multiplier >= crashPoint) {
             triggerCrash();
@@ -365,7 +368,7 @@
 
         // Кнопка повтора с Пепе
         btnLottie.load('./gift_pepe.json');
-        btnText.innerText = 'Попробовать снова 🚀';
+        btnText.innerText = 'Попробовать снова';
         actionBtn.className = 'action-button btn-restart';
     }
 
@@ -379,7 +382,7 @@
         multiplierEl.className = 'multiplier cashed-text';
 
         btnLottie.load('./gift_pepe.json');
-        btnText.innerText = 'Выиграл ⭐ ' + stars.toLocaleString('en-US') + ' — Еще раз 🚀';
+        btnText.innerText = 'Выиграл ' + stars.toLocaleString('en-US') + ' — Еще раз';
         actionBtn.className = 'action-button btn-claim';
     }
 
