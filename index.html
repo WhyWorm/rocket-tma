@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rocket Mini App</title>
+    <!-- Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body {
+            background-color: #0f0f10;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 440px;
+            height: 100vh;
+            max-height: 100vh;
+            background-color: #121212;
+            background-image: radial-gradient(circle at 50% 32%, rgba(38,38,42,0.9) 0%, rgba(18,18,18,0.98) 72%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-pattern img {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            opacity: 0.18;
+            transform: translate(-50%, -50%);
+        }
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 16px;
+            gap: 12px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .icon-btn {
+            background: transparent;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 12px;
+            z-index: 5;
+        }
+        .rocket-container {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        .floating {
+            animation: float 2s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0) scale(1.05); }
+            20%, 80% { transform: translate3d(3px, 0, 0) scale(1.08); }
+            30%, 50%, 70% { transform: translate3d(-5px, 0, 0) scale(1.1); }
+            40%, 60% { transform: translate3d(5px, 0, 0) scale(1.1); }
+        }
+        .stars-counter {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            text-shadow: 0px 2px 12px rgba(0,0,0,0.6);
+        }
+        .multiplier {
+            font-size: 20px;
+            color: #8c8e92;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: color 0.2s ease;
+        }
+        .crashed-text {
+            color: #ff453a !important;
+            font-weight: 700;
+        }
+        .cashed-text {
+            color: #30d158 !important;
+            font-weight: 700;
+        }
+        .button-container {
+            padding: 16px 20px 24px 20px;
+            width: 100%;
+            background: transparent;
+            z-index: 10;
+        }
+        .action-button {
+            width: 100%;
+            background-color: #2b5f8c;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .action-button:active {
+            transform: scale(0.98);
+        }
+        .btn-claim {
+            background-color: #328336 !important;
+        }
+        .btn-restart {
+            background-color: #2b5f8c !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Точные координаты фона из скриншотов -->
+    <div class="bg-pattern" id="bgPattern"></div>
+
+    <!-- Верхняя панель закрытия -->
+    <div class="top-bar">
+        <div class="icon-btn" onclick="toggleMenu()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </div>
+        <div class="icon-btn" onclick="closeApp()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- АНИМИРОВАННАЯ РАКЕТКА / ВЗРЫВ -->
+        <div class="rocket-container floating" id="rocketContainer">
+            <lottie-player id="mainAnimation" src="./rocket.json" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
+        </div>
+
+        <!-- СЧЕТЧИК ЗВЕЗД -->
+        <div class="stars-counter">
+            <lottie-player src="./star.json" background="transparent" speed="1" style="width: 38px; height: 38px;" loop autoplay></lottie-player>
+            <span id="starsVal">1,000</span>
+        </div>
+
+        <!-- ИКСЫ (УМНОЖИТЕЛЬ) -->
+        <div class="multiplier" id="multiplierVal">
+            x1.00
+        </div>
+    </div>
+
+    <!-- КНОПКА ДЕЙСТВИЯ -->
+    <div class="button-container">
+        <button class="action-button" id="actionBtn" onclick="handleButtonClick()">Забрать</button>
+    </div>
+</div>
+
+<script>
+    // Инициализация Telegram WebApp
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+    }
+
+    function closeApp() {
+        if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.close();
+        }
+    }
+
+    function toggleMenu() {
+        // Haptic feedback
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        }
+    }
+
+    // Дополненные точные координаты фона (+6 штук для баланса)
+    const iconCoords = [
+        { left: "14.6%", top: "7%" },
+        { left: "50.0%", top: "5%" },
+        { left: "82.1%", top: "9%" },
+        
+        { left: "36.0%", top: "12%" },
+        { left: "64.0%", top: "12%" },
+
+        { left: "27.2%", top: "19%" },
+        { left: "68.6%", top: "20%" },
+        
+        { left: "9.9%",  top: "27%" },
+        { left: "84.4%", top: "27%" },
+        
+        { left: "7.0%",  top: "40%" },
+        { left: "26.8%", top: "38%" },
+        { left: "69.0%", top: "38%" },
+        { left: "92.0%", top: "40%" },
+        
+        { left: "17.0%", top: "49%" },
+        { left: "77.3%", top: "49%" },
+        { left: "29.2%", top: "55%" },
+        
+        { left: "11.8%", top: "65%" },
+        { left: "48.0%", top: "68%" },
+        { left: "83.6%", top: "65%" },
+
+        { left: "25.0%", top: "75%" },
+        { left: "72.0%", top: "75%" }
+    ];
+
+    const bgContainer = document.getElementById('bgPattern');
+    iconCoords.forEach(pos => {
+        const img = document.createElement('img');
+        img.src = './bg_pattern.webp';
+        img.style.left = pos.left;
+        img.style.top = pos.top;
+        bgContainer.appendChild(img);
+    });
+
+    // ИГРОВАЯ МЕХАНИКА (КРАШ)
+    const INITIAL_STARS = 1000;
+    let multiplier = 1.00;
+    let stars = INITIAL_STARS;
+    let gameState = 'flying'; // 'flying', 'crashed', 'cashed'
+    let crashPoint = 0;
+    let animFrame = null;
+
+    const multiplierEl = document.getElementById('multiplierVal');
+    const starsEl = document.getElementById('starsVal');
+    const rocketContainer = document.getElementById('rocketContainer');
+    const mainAnimation = document.getElementById('mainAnimation');
+    const actionBtn = document.getElementById('actionBtn');
+
+    function triggerHaptic(type) {
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+            if (type === 'crash') {
+                window.Telegram.WebApp.HapticFeedback.notificationOccurred('error');
+            } else if (type === 'success') {
+                window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+            } else {
+                window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+            }
+        }
+    }
+
+    function startFlight() {
+        multiplier = 1.00;
+        stars = INITIAL_STARS;
+        gameState = 'flying';
+        
+        // Случайный краш от 1.50x до 5.80x
+        crashPoint = parseFloat((1.40 + Math.random() * 4.20).toFixed(2));
+
+        // Сброс UI
+        multiplierEl.innerText = 'x1.00';
+        multiplierEl.className = 'multiplier';
+        starsEl.innerText = Math.floor(stars).toLocaleString('en-US');
+        
+        mainAnimation.load('./rocket.json');
+        rocketContainer.className = 'rocket-container floating';
+
+        actionBtn.innerText = 'Забрать ⭐ ' + stars;
+        actionBtn.className = 'action-button btn-claim';
+
+        loop();
+    }
+
+    function loop() {
+        if (gameState !== 'flying') return;
+
+        // Скорость нарастания
+        const speed = 0.004 + (multiplier * 0.0035);
+        multiplier += speed;
+        stars = Math.floor(INITIAL_STARS * multiplier);
+
+        multiplierEl.innerText = 'x' + multiplier.toFixed(2);
+        starsEl.innerText = stars.toLocaleString('en-US');
+        actionBtn.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
+
+        if (multiplier >= crashPoint) {
+            triggerCrash();
+        } else {
+            animFrame = requestAnimationFrame(loop);
+        }
+    }
+
+    function triggerCrash() {
+        gameState = 'crashed';
+        cancelAnimationFrame(animFrame);
+        triggerHaptic('crash');
+
+        // Взрыв: переключаем Lottie на официальный огонь/взрыв Telegram
+        mainAnimation.load('./fire.json');
+        rocketContainer.className = 'rocket-container shake';
+
+        multiplierEl.innerText = 'ВЗОРВАЛСЯ @ x' + crashPoint.toFixed(2);
+        multiplierEl.className = 'multiplier crashed-text';
+
+        actionBtn.innerText = 'Взлететь снова 🚀';
+        actionBtn.className = 'action-button btn-restart';
+    }
+
+    function claimWin() {
+        if (gameState !== 'flying') return;
+        gameState = 'cashed';
+        triggerHaptic('success');
+
+        multiplierEl.innerText = 'ЗАБРАЛ @ x' + multiplier.toFixed(2);
+        multiplierEl.className = 'multiplier cashed-text';
+
+        actionBtn.innerText = 'Выиграл ⭐ ' + stars.toLocaleString('en-US') + ' — Играть еще';
+        actionBtn.className = 'action-button btn-restart';
+    }
+
+    function handleButtonClick() {
+        if (gameState === 'flying') {
+            claimWin();
+        } else {
+            startFlight();
+        }
+    }
+
+    // Первый запуск через 1 сек
+    setTimeout(startFlight, 800);
+</script>
+</body>
+</html>
