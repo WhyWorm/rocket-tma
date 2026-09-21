@@ -264,11 +264,11 @@
         bgContainer.appendChild(img);
     });
 
-    // ИГРОВАЯ МЕХАНИКА (КРАШ)
+    // ИГРОВАЯ МЕХАНИКА
     const INITIAL_STARS = 1000;
     let multiplier = 1.00;
     let stars = INITIAL_STARS;
-    let gameState = 'flying'; // 'flying', 'crashed', 'cashed'
+    let gameState = 'ready'; // 'ready', 'flying', 'crashed', 'cashed'
     let crashPoint = 0;
     let animFrame = null;
 
@@ -290,23 +290,33 @@
         }
     }
 
-    function startFlight() {
+    function initReadyState() {
+        gameState = 'ready';
         multiplier = 1.00;
         stars = INITIAL_STARS;
-        gameState = 'flying';
-        
-        // Случайный краш от 1.50x до 5.80x
-        crashPoint = parseFloat((1.40 + Math.random() * 4.20).toFixed(2));
 
-        // Сброс UI
         multiplierEl.innerText = 'x1.00';
         multiplierEl.className = 'multiplier';
-        starsEl.innerText = Math.floor(stars).toLocaleString('en-US');
-        
+        starsEl.innerText = stars.toLocaleString('en-US');
+
         mainAnimation.load('./rocket.json');
         rocketContainer.className = 'rocket-container floating';
 
-        actionBtn.innerText = 'Забрать ⭐ ' + stars;
+        actionBtn.innerText = 'Полетели 🚀';
+        actionBtn.className = 'action-button btn-restart';
+    }
+
+    function startFlight() {
+        gameState = 'flying';
+        multiplier = 1.00;
+        stars = INITIAL_STARS;
+        triggerHaptic('start');
+
+        // Случайный краш от 1.45x до 5.50x
+        crashPoint = parseFloat((1.45 + Math.random() * 4.05).toFixed(2));
+
+        multiplierEl.className = 'multiplier';
+        actionBtn.innerText = 'Забрать ⭐ ' + stars.toLocaleString('en-US');
         actionBtn.className = 'action-button btn-claim';
 
         loop();
@@ -315,7 +325,6 @@
     function loop() {
         if (gameState !== 'flying') return;
 
-        // Скорость нарастания
         const speed = 0.004 + (multiplier * 0.0035);
         multiplier += speed;
         stars = Math.floor(INITIAL_STARS * multiplier);
@@ -336,39 +345,42 @@
         cancelAnimationFrame(animFrame);
         triggerHaptic('crash');
 
-        // Взрыв: переключаем Lottie на официальный огонь/взрыв Telegram
+        // Взрыв: переключаем на огонь
         mainAnimation.load('./fire.json');
         rocketContainer.className = 'rocket-container shake';
 
         multiplierEl.innerText = 'ВЗОРВАЛСЯ @ x' + crashPoint.toFixed(2);
         multiplierEl.className = 'multiplier crashed-text';
 
-        actionBtn.innerText = 'Взлететь снова 🚀';
+        actionBtn.innerText = 'Попробовать снова 🚀';
         actionBtn.className = 'action-button btn-restart';
     }
 
     function claimWin() {
         if (gameState !== 'flying') return;
         gameState = 'cashed';
+        cancelAnimationFrame(animFrame);
         triggerHaptic('success');
 
         multiplierEl.innerText = 'ЗАБРАЛ @ x' + multiplier.toFixed(2);
         multiplierEl.className = 'multiplier cashed-text';
 
-        actionBtn.innerText = 'Выиграл ⭐ ' + stars.toLocaleString('en-US') + ' — Играть еще';
-        actionBtn.className = 'action-button btn-restart';
+        actionBtn.innerText = 'Выиграл ⭐ ' + stars.toLocaleString('en-US') + ' — Еще раз 🚀';
+        actionBtn.className = 'action-button btn-claim';
     }
 
     function handleButtonClick() {
-        if (gameState === 'flying') {
+        if (gameState === 'ready') {
+            startFlight();
+        } else if (gameState === 'flying') {
             claimWin();
         } else {
-            startFlight();
+            initReadyState();
         }
     }
 
-    // Первый запуск через 1 сек
-    setTimeout(startFlight, 800);
+    // Исходное состояние при открытии
+    initReadyState();
 </script>
 </body>
 </html>
